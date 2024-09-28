@@ -112,11 +112,12 @@ This README provides step-by-step instructions for deploying a Django project fr
    [Service]
    User=ubuntu
    Group=www-data
-   WorkingDirectory=/home/ubuntu/your-repo
-   ExecStart=/home/ubuntu/your-repo/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/your-repo/your_project.sock your_project.wsgi:application
+   WorkingDirectory=/home/ubuntu/sgg
+   ExecStart=/home/ubuntu/sgg/venv/bin/gunicorn --access-logfile - --bind 0.0.0.0:8000 your_project.wsgi:application
 
    [Install]
    WantedBy=multi-user.target
+
    ```
 
 3. Start and enable the Gunicorn service:
