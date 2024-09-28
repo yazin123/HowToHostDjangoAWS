@@ -150,17 +150,17 @@ This README provides step-by-step instructions for deploying a Django project fr
    }
    ```
 
-2. Create a symbolic link:
+3. Create a symbolic link:
    ```
    sudo ln -s /etc/nginx/sites-available/your_project /etc/nginx/sites-enabled
    ```
 
-3. Test Nginx configuration:
+4. Test Nginx configuration:
    ```
    sudo nginx -t
    ```
 
-4. Restart Nginx:
+5. Restart Nginx:
    ```
    sudo systemctl restart nginx
    ```
@@ -214,18 +214,25 @@ To ensure your project runs even when the terminal is closed:
    ```
    sudo systemctl enable gunicorn
    ```
+## Give Permissions
 
-2. You can use `tmux` or `screen` for long-running processes:
+   Give necessary permissions
    ```
-   sudo apt install tmux -y
-   tmux new -s django_session
+   sudo chown -R www-data:www-data /home/ubuntu/project_dir/static
+   sudo chown -R www-data:www-data /home/ubuntu/project_dir
+   sudo chown -R www-data:www-data /home/project_dir
+   sudo chown -R www-data:www-data /home
+
+   ```
+   check permission
+   ```
+   ls -ld /home/ubuntu
    ```
 
-3. To detach from the tmux session, press `Ctrl+B`, then `D`.
-
-4. To reattach to the session:
+   If System using SELinux or AppArmor
    ```
-   tmux attach -t django_session
+   sestatus
+   sudo setenforce 0
    ```
 
 Your Django project should now be successfully deployed on AWS EC2, accessible via your custom domain with HTTPS, and running continuously.
